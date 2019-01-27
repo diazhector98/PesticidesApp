@@ -9,7 +9,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Picker, FlatList, TouchableHighlight} from 'react-native';
-
+import {ButtonGroup} from 'react-native-elements';
 export default class App extends Component {
 
   state = {
@@ -29,6 +29,10 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ButtonGroup  onPress={()=>alert('hello')}
+        selectedIndex={0}
+        buttons={['Hello', 'Goodbye']}
+        containerStyle={{height: 100}}/>
         <View style={styles.locationContainer}>
           <Text>Choose location</Text>
           <Picker
