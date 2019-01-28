@@ -8,12 +8,15 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Picker, FlatList, TouchableHighlight} from 'react-native';
-import {ButtonGroup} from 'react-native-elements';
+import {Platform, StyleSheet, View, Picker, FlatList, TouchableHighlight} from 'react-native';
+import {ButtonGroup, Text} from 'react-native-elements';
 export default class App extends Component {
 
+  constructor () {
+    super();
+  }
   state = {
-    location: 'valley',
+    location: 0,
     pesticides: [
       {key: 'Object 1', data: 'hello'},
       {key: 'Object 2'},
@@ -25,33 +28,28 @@ export default class App extends Component {
     alert(item.data);
   };
 
+  updateSelectedLocation = (indexSelected) => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        location: indexSelected
+      }
+    });
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
-        <ButtonGroup  onPress={()=>alert('hello')}
-        selectedIndex={0}
-        buttons={['Hello', 'Goodbye']}
-        containerStyle={{height: 100}}/>
-        <View style={styles.locationContainer}>
-          <Text>Choose location</Text>
-          <Picker
-            selectedValue={this.state.location}
-            style={styles.locationPicker}
-            onValueChange={(itemValue, itemIndex) => {
-              this.setState({
-                location: itemValue
-              })
-            }}
-            itemStyle={styles.locationPickerItem}
-          >
-            <Picker.Item label="Valley" value="valley"/>
-            <Picker.Item label="Foothills" value="foothills"/>
-          </Picker>
-        </View>
+        <Text h1>Choose location!</Text>
+        <ButtonGroup  onPress={this.updateSelectedLocation}
+        selectedIndex={this.state.location}
+        buttons={['Valley', 'Foothills']}
+        containerStyle={{height: 50}}/>
+
         <View style={styles.pesticidesContainer}>
           <View>
-              <Text>Pesticides</Text>
+              <Text h1>Pesticides</Text>
             </View>
             <View style={styles.pesticidesList}>
               <FlatList 
