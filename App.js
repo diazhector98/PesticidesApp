@@ -9,7 +9,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, View, Picker, FlatList, TouchableHighlight} from 'react-native';
-import {ButtonGroup, Text} from 'react-native-elements';
+import {ButtonGroup, Text, SearchBar} from 'react-native-elements';
 export default class App extends Component {
 
   constructor () {
@@ -21,7 +21,8 @@ export default class App extends Component {
       {key: 'Object 1', data: 'hello'},
       {key: 'Object 2'},
       {key: 'Object 3'}
-    ]
+    ],
+    search: ''
   };
 
   handlePesticidePressed = (item) => {
@@ -35,6 +36,15 @@ export default class App extends Component {
         location: indexSelected
       }
     });
+  }
+
+  updateSearch = search => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        search: search
+      }
+    })
   }
 
 
@@ -51,6 +61,15 @@ export default class App extends Component {
           <View>
               <Text h1>Pesticides</Text>
             </View>
+            <SearchBar 
+            placeholder='search pesticide used:'
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            lightTheme={true}
+            round={true}
+            containerStyle={{backgroundColor: 'white'}}
+            inputStyle={{backgroundColor: '#D3D3D3'}}
+            />
             <View style={styles.pesticidesList}>
               <FlatList 
                 data={this.state.pesticides}
